@@ -1,0 +1,21 @@
+{
+    "topicName": "General",
+    "topicDescription": "Posts related to personal development and general knowledge.",
+    "author": "John Doe",
+    "publishDate": null,
+    "lastEditDate": null,
+    "folderUrl": "_general/",
+    "isVisible": true,
+    "posts": [
+      {
+        "title": "Personality Development",
+        "url": "_general/personality_dev.html",
+        "author": "John Doe",
+        "publishDate": null,  
+        "lastEditDate": null,
+        "folderUrl": "_general/",
+        "isVisible": true
+      }
+    ]
+  }
+  

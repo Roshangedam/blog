@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+    
+
+    <script>
+        // Function to fetch and display GitHub markdown file
+        function fetchMarkdown() {
+            // GitHub markdown file ka URL (raw)
+            var url = 'https://raw.githubusercontent.com/Roshangedam/Blog/main/_posts/_general/personality_dev.md'; // Replace with actual GitHub raw URL
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // Parse markdown to HTML and display
+                    document.getElementById('content').innerHTML = marked.parse(data);
+                })
+                .catch(error => console.error('Error fetching markdown:', error));
+        }
+
+        // Initially fetch GitHub markdown when the page loads
+        window.onload = fetchMarkdown;
+    </script>
+</body>
+</html>
