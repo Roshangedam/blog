@@ -1,0 +1,1 @@
+:root{--drawer-size: 4px;--drawer-grid-gap: 3px;--drawer-container-padding: 15px;--font-size: 11px;--font-colour: #dad5d5;--font-family: system-ui;--active-colour: #bb3992}body{background:radial-gradient(circle at 50% 50%,#7fd3cb,#80bfc5,#5b9d9f,#487b83);width:100%;height:100%;font-family:var(--font-family);position:relative;color:var(--font-colour);font-size:var(--font-size)}
