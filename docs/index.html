@@ -1,14 +1,697 @@
-<!doctype html>
-<html lang="en" data-beasties-container>
+<!DOCTYPE html>
+<html lang="hi">
 <head>
-  <meta charset="utf-8">
-  <title>AngulerApp</title>
-  <base href="/blog/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
-<style>:root{--drawer-size:4px;--drawer-grid-gap:3px;--drawer-container-padding:15px;--font-size:11px;--font-colour:#dad5d5;--font-family:system-ui;--active-colour:#bb3992}body{background:radial-gradient(circle at 50% 50%,#7fd3cb,#80bfc5,#5b9d9f,#487b83);width:100%;height:100%;font-family:var(--font-family);position:relative;color:var(--font-colour);font-size:var(--font-size)}</style><link rel="stylesheet" href="styles-SZSD4RPP.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-SZSD4RPP.css"></noscript></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ब्लॉग वेबसाइट</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f1f5f9;
+            --sidebar-width: 240px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark);
+        }
+        
+        /* साइडबार स्टाइल */
+        .sidebar {
+            position: fixed;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--dark);
+            color: white;
+            padding: 20px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-light);
+        }
+        
+        .sidebar-menu {
+            margin-top: 40px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .menu-item:hover {
+            background-color: var(--dark-light);
+        }
+        
+        .menu-item.active {
+            background-color: var(--primary);
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+        }
+        
+        /* मेन कंटेंट एरिया */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            padding: 8px 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            width: 300px;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-left: 10px;
+            width: 100%;
+        }
+        
+        /* डैशबोर्ड कार्ड्स */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-title {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .card-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .card-growth {
+            font-size: 14px;
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+        
+        .card-chart {
+            height: 60px;
+            margin-top: 15px;
+            position: relative;
+        }
+        
+        .mini-chart {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .mini-chart-bar {
+            flex: 1;
+            margin: 0 1px;
+            background-color: rgba(99, 102, 241, 0.2);
+            border-radius: 2px 2px 0 0;
+            transition: all 0.3s;
+        }
+        
+        .mini-chart-bar:hover {
+            background-color: rgba(99, 102, 241, 0.5);
+        }
+        
+        /* टॉपिक्स लिस्ट */
+        .topic-list {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .topic-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .topic-list-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .topic-list-header button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .topic-list-header button:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .topic-list-content {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .topic-list-content thead {
+            background-color: #f8fafc;
+        }
+        
+        .topic-list-content th, .topic-list-content td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .topic-list-content tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .topic-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .tag-tech {
+            background-color: #e0f2fe;
+            color: #0284c7;
+        }
+        
+        .tag-lifestyle {
+            background-color: #fef9c3;
+            color: #ca8a04;
+        }
+        
+        .tag-food {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .tag-travel {
+            background-color: #ffe4e6;
+            color: #e11d48;
+        }
+        
+        /* रडार चार्ट सेक्शन */
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .radar-chart {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .radar-chart-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 250px;
+        }
+        
+        .radar-visualization {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .radar-polygon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            background-color: rgba(99, 102, 241, 0.2);
+            border: 2px solid rgba(99, 102, 241, 1);
+            transition: all 0.5s;
+        }
+        
+        .radar-axis {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            transform-origin: center;
+        }
+        
+        .radar-axis:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
+        .radar-axis:nth-child(2) { transform: translate(-50%, -50%) rotate(72deg); }
+        .radar-axis:nth-child(3) { transform: translate(-50%, -50%) rotate(144deg); }
+        .radar-axis:nth-child(4) { transform: translate(-50%, -50%) rotate(216deg); }
+        .radar-axis:nth-child(5) { transform: translate(-50%, -50%) rotate(288deg); }
+        
+        .radar-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            border: 1px dashed rgba(0, 0, 0, 0.1);
+            transform: translate(-50%, -50%);
+        }
+        
+        .radar-circle:nth-child(7) { width: 60%; height: 60%; }
+        .radar-circle:nth-child(8) { width: 40%; height: 40%; }
+        .radar-circle:nth-child(9) { width: 20%; height: 20%; }
+        
+        .radar-label {
+            position: absolute;
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .radar-label:nth-child(10) { top: -5%; left: 50%; transform: translateX(-50%); }
+        .radar-label:nth-child(11) { top: 38%; right: -10%; }
+        .radar-label:nth-child(12) { bottom: 0; right: 15%; }
+        .radar-label:nth-child(13) { bottom: 0; left: 15%; }
+        .radar-label:nth-child(14) { top: 38%; left: -10%; }
+        
+        .radar-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* एनिमेशन्स */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .dashboard-cards .card {
+            animation: fadeIn 0.6s ease backwards;
+        }
+        
+        .dashboard-cards .card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-cards .card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-cards .card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-cards .card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .topic-list, .radar-chart {
+            animation: fadeIn 0.6s ease backwards;
+            animation-delay: 0.5s;
+        }
+        
+        .radar-polygon {
+            animation: pulse 3s infinite;
+        }
+        
+        /* रेस्पोंसिव डिज़ाइन */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .show-sidebar .sidebar {
+                transform: translateX(0);
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 200;
+                background-color: var(--primary);
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
 <body>
-    <app-dashboard></app-dashboard>
-<script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-ZWPTMNW7.js" type="module"></script></body>
+    <!-- साइडबार -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">ब्लॉगरिया</div>
+        </div>
+        
+        <div class="sidebar-menu">
+            <div class="menu-item active">
+                <i>📊</i> डैशबोर्ड
+            </div>
+            <div class="menu-item">
+                <i>📝</i> पोस्ट लिखें
+            </div>
+            <div class="menu-item">
+                <i>📂</i> श्रेणियाँ
+            </div>
+            <div class="menu-item">
+                <i>💬</i> टिप्पणियाँ
+            </div>
+            <div class="menu-item">
+                <i>👥</i> उपयोगकर्ता
+            </div>
+            <div class="menu-item">
+                <i>⚙️</i> सेटिंग्स
+            </div>
+        </div>
+    </div>
+    
+    <!-- मेन कंटेंट -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">डैशबोर्ड</h1>
+            <div class="search-box">
+                <i>🔍</i>
+                <input type="text" placeholder="खोजें...">
+            </div>
+        </div>
+        
+        <!-- डैशबोर्ड कार्ड्स -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-title">कुल व्यूज</div>
+                <div class="card-value">45,238</div>
+                <div class="card-growth">+12.5% पिछले महीने से</div>
+                <div class="card-chart">
+                    <div class="mini-chart" id="views-chart">
+                        <div class="mini-chart-bar" style="height: 40%;"></div>
+                        <div class="mini-chart-bar" style="height: 60%;"></div>
+                        <div class="mini-chart-bar" style="height: 30%;"></div>
+                        <div class="mini-chart-bar" style="height: 70%;"></div>
+                        <div class="mini-chart-bar" style="height: 50%;"></div>
+                        <div class="mini-chart-bar" style="height: 60%;"></div>
+                        <div class="mini-chart-bar" style="height: 80%;"></div>
+                        <div class="mini-chart-bar" style="height: 90%;"></div>
+                        <div class="mini-chart-bar" style="height: 70%;"></div>
+                        <div class="mini-chart-bar" style="height: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">आज के विज़िटर्स</div>
+                <div class="card-value">1,294</div>
+                <div class="card-growth">+5.2% कल से</div>
+                <div class="card-chart">
+                    <div class="mini-chart" id="visitors-chart">
+                        <div class="mini-chart-bar" style="height: 30%;"></div>
+                        <div class="mini-chart-bar" style="height: 40%;"></div>
+                        <div class="mini-chart-bar" style="height: 60%;"></div>
+                        <div class="mini-chart-bar" style="height: 50%;"></div>
+                        <div class="mini-chart-bar" style="height: 45%;"></div>
+                        <div class="mini-chart-bar" style="height: 55%;"></div>
+                        <div class="mini-chart-bar" style="height: 65%;"></div>
+                        <div class="mini-chart-bar" style="height: 70%;"></div>
+                        <div class="mini-chart-bar" style="height: 85%;"></div>
+                        <div class="mini-chart-bar" style="height: 90%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">टिप्पणियाँ</div>
+                <div class="card-value">928</div>
+                <div class="card-growth">+18.7% पिछले सप्ताह से</div>
+                <div class="card-chart">
+                    <div class="mini-chart" id="comments-chart">
+                        <div class="mini-chart-bar" style="height: 50%;"></div>
+                        <div class="mini-chart-bar" style="height: 40%;"></div>
+                        <div class="mini-chart-bar" style="height: 60%;"></div>
+                        <div class="mini-chart-bar" style="height: 70%;"></div>
+                        <div class="mini-chart-bar" style="height: 55%;"></div>
+                        <div class="mini-chart-bar" style="height: 75%;"></div>
+                        <div class="mini-chart-bar" style="height: 65%;"></div>
+                        <div class="mini-chart-bar" style="height: 80%;"></div>
+                        <div class="mini-chart-bar" style="height: 90%;"></div>
+                        <div class="mini-chart-bar" style="height: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">लेख</div>
+                <div class="card-value">47</div>
+                <div class="card-growth">+3 इस महीने</div>
+                <div class="card-chart">
+                    <div class="mini-chart" id="posts-chart">
+                        <div class="mini-chart-bar" style="height: 20%;"></div>
+                        <div class="mini-chart-bar" style="height: 30%;"></div>
+                        <div class="mini-chart-bar" style="height: 30%;"></div>
+                        <div class="mini-chart-bar" style="height: 40%;"></div>
+                        <div class="mini-chart-bar" style="height: 45%;"></div>
+                        <div class="mini-chart-bar" style="height: 50%;"></div>
+                        <div class="mini-chart-bar" style="height: 35%;"></div>
+                        <div class="mini-chart-bar" style="height: 60%;"></div>
+                        <div class="mini-chart-bar" style="height: 65%;"></div>
+                        <div class="mini-chart-bar" style="height: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- टॉपिक्स लिस्ट -->
+        <div class="topic-list">
+            <div class="topic-list-header">
+                <div class="topic-list-title">लोकप्रिय विषय</div>
+                <button>सभी देखें</button>
+            </div>
+            
+            <table class="topic-list-content">
+                <thead>
+                    <tr>
+                        <th>शीर्षक</th>
+                        <th>श्रेणी</th>
+                        <th>दिनांक</th>
+                        <th>व्यूज</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI का भविष्य: 2025 और उसके बाद</td>
+                        <td><span class="topic-tag tag-tech">तकनीकी</span></td>
+                        <td>05 मार्च, 2025</td>
+                        <td>1,245</td>
+                    </tr>
+                    <tr>
+                        <td>जापान यात्रा गाइड: क्योटो में 7 दिन</td>
+                        <td><span class="topic-tag tag-travel">यात्रा</span></td>
+                        <td>28 फरवरी, 2025</td>
+                        <td>987</td>
+                    </tr>
+                    <tr>
+                        <td>घर पर बनाएं 5 स्वादिष्ट थाई व्यंजन</td>
+                        <td><span class="topic-tag tag-food">खाना</span></td>
+                        <td>25 फरवरी, 2025</td>
+                        <td>854</td>
+                    </tr>
+                    <tr>
+                        <td>मिनिमलिज्म: कम के साथ खुश रहने का सफर</td>
+                        <td><span class="topic-tag tag-lifestyle">जीवनशैली</span></td>
+                        <td>20 फरवरी, 2025</td>
+                        <td>723</td>
+                    </tr>
+                    <tr>
+                        <td>वेब डेवलपमेंट ट्रेंड्स 2025</td>
+                        <td><span class="topic-tag tag-tech">तकनीकी</span></td>
+                        <td>15 फरवरी, 2025</td>
+                        <td>689</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- चार्ट सेक्शन -->
+        <div class="chart-container">
+            <div class="radar-chart">
+                <div class="chart-title">श्रेणी परफॉरमेंस</div>
+                <div class="radar-chart-container">
+                    <div class="radar-visualization">
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-polygon"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-label">तकनीकी</div>
+                        <div class="radar-label">यात्रा</div>
+                        <div class="radar-label">खाना</div>
+                        <div class="radar-label">जीवनशैली</div>
+                        <div class="radar-label">शिक्षा</div>
+                        <div class="radar-point" style="top: 20%; left: 50%"></div>
+                        <div class="radar-point" style="top: 40%; left: 85%"></div>
+                        <div class="radar-point" style="top: 80%; left: 70%"></div>
+                        <div class="radar-point" style="top: 80%; left: 30%"></div>
+                        <div class="radar-point" style="top: 40%; left: 15%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="radar-chart">
+                <div class="chart-title">उपयोगकर्ता एंगेजमेंट</div>
+                <div class="radar-chart-container">
+                    <div class="radar-visualization">
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-axis"></div>
+                        <div class="radar-polygon" style="clip-path: polygon(50% 15%, 85% 40%, 70% 80%, 30% 80%, 15% 40%);"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-label">टिप्पणियाँ</div>
+                        <div class="radar-label">शेयर</div>
+                        <div class="radar-label">लाइक्स</div>
+                        <div class="radar-label">बुकमार्क</div>
+                        <div class="radar-label">वापसी</div>
+                        <div class="radar-point" style="top: 15%; left: 50%"></div>
+                        <div class="radar-point" style="top: 40%; left: 85%"></div>
+                        <div class="radar-point" style="top: 80%; left: 70%"></div>
+                        <div class="radar-point" style="top: 80%; left: 30%"></div>
+                        <div class="radar-point" style="top: 40%; left: 15%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- मोबाइल मेनू बटन -->
+    <button class="menu-toggle" id="menuToggle" style="display: none;">☰</button>
+    
+    <script>
+        // मोबाइल मेनू टॉगल
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.body.classList.toggle('show-sidebar');
+        });
+        
+        // रेस्पोंसिव चेक
+        function checkResponsive() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('menuToggle').style.display = 'block';
+            } else {
+                document.getElementById('menuToggle').style.display = 'none';
+                document.body.classList.remove('show-sidebar');
+            }
+        }
+        
+        window.addEventListener('resize', checkResponsive);
+        checkResponsive();
+        
+        // कार्ड्स में मिनी चार्ट एनिमेशन
+        document.querySelectorAll('.mini-chart-bar').forEach(bar => {
+            const originalHeight = bar.style.height;
+            bar.style.height = '0';
+            
+            setTimeout(() => {
+                bar.style.transition = 'height 1s ease';
+                bar.style.height = originalHeight;
+            }, 500);
+        });
+    </script>
+</body>
 </html>
